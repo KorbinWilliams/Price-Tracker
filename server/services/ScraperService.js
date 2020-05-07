@@ -13,26 +13,29 @@ class ScraperService {
   //Image: PARENT = <div class="a-section aok-relative s-image-fixed-height"> CHILD = <img class="s-image">
   // Price: CHILD = <span class="a-price-whole"> 
   async getAll(url) {
-    let urlArr = url.split('.')
-    let website = urlArr[2]
 
-      (async () => {
-        const browser = await puppeteer.launch()
-        const page = await browser.newPage()
-        await page.goto(url)
-        await page.screenshot({ path: url })
+    // "urlArr[1] is not a function"
 
-        if (website == 'amazon') {
-          let productImage = await page.evaluate(() => document.querySelector("div img.s-image").textContent)
-          console.log(productImage)
-        }
-        else if (website == 'ebay') {
+    (async () => {
+      let urlArr = url.split('.')
+      let website = urlArr[1]
+      const browser = await puppeteer.launch()
+      const page = await browser.newPage()
+      await page.goto(url)
+      let picture = await page.screenshot({ path: 'test.png' })
 
-        }
-        else {
+      if (website == 'amazon') {
+        let productImageStr = await page.evaluate(() => document.querySelector("div img.s-image"))
+        let response = productImageStr
+        return response
+      }
+      else if (website == 'ebay') {
 
-        }
-      })
+      }
+      else {
+
+      }
+    })
   }
 }
 
