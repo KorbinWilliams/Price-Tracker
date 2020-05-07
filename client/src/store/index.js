@@ -32,7 +32,7 @@ export default new Vuex.Store({
       state[payload.address] = payload.data;
     },
     removeItem(state, payload) {
-      state[payload.address].filter(item => item._id = payload.data._id)
+      state[payload.address] = state[payload.address].filter(item => item._id != payload.data._id)
     },
     resetItem(state, payload) {
       state[payload.address].clear()
