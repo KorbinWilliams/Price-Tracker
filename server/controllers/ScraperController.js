@@ -25,7 +25,7 @@ export default class ScraperController {
   async getAll(req, res, next) {
     try {
       //only gets (items) by user who is logged in
-      let data = await _scraperService.getAll(url)
+      let data = await _scraperService.getAll(req.body.url)
       return res.send(data)
     }
     catch (err) { next(err) }
