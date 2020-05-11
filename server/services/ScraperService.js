@@ -42,15 +42,20 @@ class ScraperService {
 
       for (let i = 0; i <= productArray.length; i++) {
         let product = productArray[i];
-        let child = await page.evaluate(
-          () => document.querySelector(`div[data-index=${i} a-row]`).innerHTML
-        );
+        let child = await page.evaluate((i) => {
+          document.querySelector(`div[data-index='${i}']`);
+        }, i);
         // product.price = child;
         priceArray.push(child);
       }
 
+      let test1 = await page.evaluate((i) => {
+        document.querySelector(`div[data-index='${i}']`).innerHTML;
+      });
+      // let test = test1.toString()
+
       await browser.close();
-      return [productArray, priceArray];
+      return [productArray, test1];
     }
   }
 }
