@@ -6,7 +6,16 @@ import puppeteer from "puppeteer";
 
 class ScraperService {
   // TODO Need to decide how complicated this will be. First make the static querys. Then possibly expand to things like url specific querys/filters.
-  //NOTE need to check query-selectors. Might be differences in screen size(is puppeteer screen size constant?)
+  //NOTE need to check query-selectors. Might be differences in screen size(is puppeteer screen size constant?) const puppeteer = require('puppeteer');
+  // const iPhone = puppeteer.devices['iPhone 6'];
+  // (async () => {
+  //   const browser = await puppeteer.launch();
+  //   const page = await browser.newPage();
+  //   await page.emulate(iPhone);
+  //   await page.goto('https://www.google.com');
+  //   // other actions...
+  //   await browser.close();
+  // })();
 
   async getAll(url) {
     //NOTE Takes in url opens puppeteer(chromium), then goes to url
@@ -30,18 +39,14 @@ class ScraperService {
       );
 
       let priceArray = [];
-      let count = 0;
 
-      for (let i = 0; count > 10; i++) {
-        const product = i;
-        await page.evaluate(() => {
-          let parent = document.querySelector(`div[data-index='${count}'] `);
-          let child = parent.getElementsByClassName(
-            "a-row a-size-base a-color-base"
-          );
-          console.log(child);
-          priceArray.push(child);
-        });
+      for (let i = 0; i <= productArray.length; i++) {
+        let product = productArray[i];
+        let child = await page.evaluate(
+          () => document.querySelector(`div[data-index=${i} a-row]`).innerHTML
+        );
+        // product.price = child;
+        priceArray.push(child);
       }
 
       await browser.close();
