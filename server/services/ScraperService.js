@@ -27,36 +27,60 @@ class ScraperService {
 
     if (website == "amazon") {
       //NOTE returns the first 10 products of an amazon search
-      let productArray = await page.evaluate(() =>
-        Array.from(document.querySelectorAll("div.s-include-content-margin"))
-          .map((product) => ({
-            title: product.querySelector("h2 span").textContent,
-            image: product.querySelector("img").src,
-            //NOTE need to take off price evaluate separately
-            price: "",
-          }))
-          .slice(0, 10)
-      );
+      // let productArray = await page.evaluate(() =>
+      //   Array.from(document.querySelectorAll("div.s-include-content-margin"))
+      //     .map((product) => ({
+      //       title: product.querySelector("h2 span").textContent,
+      //       image: product.querySelector("img").src,
+      //       //NOTE need to take off price evaluate separately
+      //       price: "",
+      //     }))
+      //     .slice(0, 10)
+      // );
 
-      let priceArray = [];
-
-      for (let i = 0; i <= productArray.length; i++) {
-        let product = productArray[i];
-        let child = await page.evaluate((i) => {
-          document.querySelector(`div[data-index='${i}']`);
-        }, i);
-        // product.price = child;
-        priceArray.push(child);
-      }
-
-      let test1 = await page.evaluate((i) => {
-        document.querySelector(`div[data-index='${i}']`).innerHTML;
+      let testArr = await page.evaluate(() => {
+        let productArray1 = [];
+        let parent = document.querySelectorAll("div.s-include-content-margin");
+        for (let i = 0; i < parent.length; i++) {
+          const child = parent[i];
+          if (child.innerHTML.indexOf("a-price") != -1) {
+            let newObj = Object.create({
+              title: child.querySelector("h2 span").textContent,
+              image: child.querySelector("img").src,
+              price: child.querySelector("span.a-price-whole").textContent,
+            });
+            productArray1.push(newObj);
+          } else {
+            let newObj = Object.create({
+              title: child.querySelector("h2 span").textContent,
+              image: child.querySelector("img").src,
+              price: "NA",
+            });
+            productArray1.push(newObj);
+          }
+        }
+        return productArray1;
       });
-      // let test = test1.toString()
-
-      await browser.close();
-      return [productArray, test1];
     }
+    // let priceArray = [];
+
+    // for (let i = 0; i <= productArray.length; i++) {
+    //   let product = productArray[i];
+    //   let child = await page.evaluate((i) => {
+    //     document.querySelector(`div[data-index='${i}']`).innerHTML;
+    //   }, i);
+    //   priceArray.push(child);
+    //   // product.price = child;
+    // }
+
+    // let test1 = await page.evaluate(() =>
+    //   document.querySelectorAll(`div[data-index='0']`)
+    // );
+
+    // let test2 = await page.evaluate(() =>
+    //   document.querySelectorAll("div[data-index='0']")
+    // );
+    // let test = test1.toString()
   }
 }
 
