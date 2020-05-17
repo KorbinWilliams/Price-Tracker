@@ -30,64 +30,23 @@ class ScraperService {
       let productArray = await page.evaluate(() =>
         Array.from(document.querySelectorAll("div.s-include-content-margin"))
           .map((product) => ({
-            title: product.querySelector("h2 span").textContent,
+            title: product.querySelector("h2 span").innerHTML,
             image: product.querySelector("img").src,
             //NOTE need to take off price evaluate separately
-            price: product.querySelector("div.a-size-base").innerHTML,
+            price:
+              product.querySelector("div.a-size-base").innerHTML || "no price",
           }))
           .slice(0, 10)
       );
+
+      // for (let i = 0; i < productArray.length; i++) {
+      //   const product = productArray[i];
+      //   if (product.price !== "no price") {
+      //     product.price.replace(/[^0-9]/g, "");
+      //   }
+      // }
       await browser.close();
       return productArray;
-
-      //   let productArray1 = [];
-      //   await page
-      //     .evaluate((productArray1) => {
-      //       let parent = document.querySelectorAll(
-      //         "div.s-include-content-margin"
-      //       );
-      //       for (let i = 0; i < parent.length; i++) {
-      //         const child = parent[i];
-      //         if (child.innerHTML.indexOf("a-price-whole") != -1) {
-      //           let newObj = Object.create({
-      //             title: child.querySelector("h2 span").textContent,
-      //             image: child.querySelector("img").src,
-      //             price: child.querySelector("span.a-price-whole").textContent,
-      //           });
-      //           productArray1.push(newObj);
-      //         } else {
-      //           let newObj = Object.create({
-      //             title: child.querySelector("h2 span").textContent,
-      //             image: child.querySelector("img").src,
-      //             price: "NA",
-      //           });
-      //           productArray1.push(newObj);
-      //         }
-      //       }
-      //     }, productArray1)
-      //     .then((productArray1) => {
-      //       return productArray1;
-      //     });
-      // }
-      // let priceArray = [];
-
-      // for (let i = 0; i <= productArray.length; i++) {
-      //   let product = productArray[i];
-      //   let child = await page.evaluate((i) => {
-      //     document.querySelector(`div[data-index='${i}']`).innerHTML;
-      //   }, i);
-      //   priceArray.push(child);
-      //   // product.price = child;
-      // }
-
-      // let test1 = await page.evaluate(() =>
-      //   document.querySelectorAll(`div[data-index='0']`)
-      // );
-
-      // let test2 = await page.evaluate(() =>
-      //   document.querySelectorAll("div[data-index='0']")
-      // );
-      // let test = test1.toString()
     }
   }
 }
