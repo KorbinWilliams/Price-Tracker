@@ -30,21 +30,21 @@ class ScraperService {
       let productArray = await page.evaluate(() =>
         Array.from(document.querySelectorAll("div.s-include-content-margin"))
           .map((product) => ({
-            title: product.querySelector("h2 span").innerHTML,
+            title: product.querySelector("h2 span").textContent,
             image: product.querySelector("img").src,
             //NOTE need to take off price evaluate separately
-            price:
-              product.querySelector("div.a-size-base").innerHTML || "no price",
+            price: product.querySelector("div.a-size-base").innerHTML || 0,
           }))
           .slice(0, 10)
       );
 
-      // for (let i = 0; i < productArray.length; i++) {
-      //   const product = productArray[i];
-      //   if (product.price !== "no price") {
-      //     product.price.replace(/[^0-9]/g, "");
-      //   }
-      // }
+      for (let i = 0; i < productArray.length; i++) {
+        const product = productArray[i];
+        if (product.price != 0) {
+          // @ts-ignore
+          product.price = product.price.indexOf("$");
+        }
+      }
       await browser.close();
       return productArray;
     }
