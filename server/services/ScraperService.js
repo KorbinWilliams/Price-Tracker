@@ -20,18 +20,23 @@ class ScraperService {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(url);
-    let productArray = await page.evaluate(() =>
-      Array.from(document.querySelectorAll("div.s-include-content-margin"))
-        .map((product) => ({
-          title: product.querySelector("h2 span").textContent,
-          image: product.querySelector("img").src,
-          //NOTE need to take off price evaluate separately
-          price: product.querySelector("div.a-size-base").innerHTML || 0,
-        }))
-        .slice(0, 10)
-    );
-    return productArray;
+    try {
+      let productArray = await page.evaluate(() =>
+        Array.from(document.querySelectorAll("div.s-include-content-margin"))
+          .map((product) => ({
+            title: product.querySelector("h2 span").textContent,
+            image: product.querySelector("img").src,
+            //NOTE need to take off price evaluate separately
+            price: product.querySelector("div.a-size-base").innerHTML || 0,
+          }))
+          .slice(0, 10)
+      );
+      return productArray;
+    } catch (error) {
+      this.getProductArray(url);
+    }
   }
+  // NOTE Takes the price which is a string of html and extracts the price if possible
   replacePrice(productArray) {
     for (let i = 0; i < productArray.length; i++) {
       const product = productArray[i];
@@ -50,12 +55,9 @@ class ScraperService {
   }
 
   async getAll(url) {
-    //NOTE Takes in url opens puppeteer(chromium), then goes to url
+    //NOTE Takes in url returns product array
     let urlArr = url.split(".");
     let website = urlArr[1];
-    // const browser = await puppeteer.launch();
-    // const page = await browser.newPage();
-    // await page.goto(url);
 
     if (website == "amazon") {
       //NOTE returns the first 10 products of an amazon search
