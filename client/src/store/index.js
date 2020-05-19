@@ -79,7 +79,7 @@ export default new Vuex.Store({
     get({ commit }, payload) {
       if (payload.data) {
         api
-          .get("" + payload.address + payload.data)
+          .get("" + payload.address + "/" + payload.data)
           .then((res) => {
             commit(payload.commit, {
               data: res.data,

@@ -1,12 +1,17 @@
 <template>
-  <div class="home container">
-    <div class="row">nav bar</div>
-    <div class="row">products that hit wanted price</div>
+  <div class="home container-fluid">
+    <navBar />
+    <productDisplay />
+    <searchProducts />
   </div>
 </template>
 
 <script>
+import navBar from "../components/NavBar";
+import productDisplay from "../components/ProductDisplay";
+import searchProducts from "../components/SearchProducts";
 import router from "@/router/index.js";
+
 export default {
   name: "home",
   mounted() {
@@ -23,6 +28,11 @@ export default {
   methods: {},
   computed: {
     // function returns
+  },
+  components: {
+    navBar,
+    productDisplay,
+    searchProducts
   }
 };
 </script>

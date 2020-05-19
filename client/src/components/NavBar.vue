@@ -1,11 +1,11 @@
 <template>
   <div class="navBar">
-    <div class="row">
+    <div class="row" id="navBox">
       <div class="col-2 offset-3">
         <router-link to="/home">Home</router-link>
       </div>
       <div class="col-2">
-        <router-link to="/">My Products</router-link>
+        <router-link to="/myProducts">My Products</router-link>
       </div>
     </div>
   </div>
@@ -19,4 +19,7 @@ export default {
 </script>
 
 <style>
+#navBox {
+  border: 2px solid black;
+}
 </style>
