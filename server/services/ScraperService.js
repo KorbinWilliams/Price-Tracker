@@ -62,9 +62,14 @@ class ScraperService {
     if (website == "amazon") {
       //NOTE returns the first 10 products of an amazon search
       let productArray = await this.getProductArray(url);
-      productArray = this.replacePrice(productArray);
-      // await browser.close();
-      return productArray;
+      if (productArray == undefined) {
+        productArray = await this.getProductArray(url);
+        productArray = this.replacePrice(productArray);
+        return productArray;
+      } else {
+        productArray = this.replacePrice(productArray);
+        return productArray;
+      }
     }
   }
 }

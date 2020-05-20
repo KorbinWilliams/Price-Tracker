@@ -14,20 +14,25 @@ import router from "@/router/index.js";
 
 export default {
   name: "home",
-  mounted() {
-    this.$store.dispatch("get", {
-      commit: "setItem",
-      address: "scraper",
-      commitAddress: "searchResults",
-      data: "https://www.amazon.com/s?k=dog+treat&ref=nb_sb_noss_2"
-    });
-  },
+  // mounted() {
+  //   // https://www.amazon.com/s?k=car&ref=nb_sb_noss_2
+  //   this.$store.dispatch("create", {
+  //     commit: "setItem",
+  //     address: "scraper",
+  //     commitAddress: "searchResults",
+  //     data: {
+  //       url: "https://www.amazon.com/s?k=dog+treat&ref=nb_sb_noss_2"
+  //     }
+  //   });
+  // },
   data() {
     return {};
   },
   methods: {},
   computed: {
-    // function returns
+    searchResults() {
+      return this.$store.state.searchResults;
+    }
   },
   components: {
     navBar,

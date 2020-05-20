@@ -13,7 +13,7 @@ let base = window.location.host.includes("localhost:8080")
 
 let api = Axios.create({
   baseURL: base + "api/",
-  timeout: 3000,
+  timeout: 6000,
   withCredentials: true,
 });
 
@@ -77,27 +77,15 @@ export default new Vuex.Store({
     },
     // SECTION functional actions
     get({ commit }, payload) {
-      if (payload.data) {
-        api
-          .get("" + payload.address + "/" + payload.data)
-          .then((res) => {
-            commit(payload.commit, {
-              data: res.data,
-              address: payload.commitAddress,
-            });
-          })
-          .catch((e) => console.error(e));
-      } else {
-        api
-          .get("" + payload.address)
-          .then((res) => {
-            commit(payload.commit, {
-              data: res.data,
-              address: payload.commitAddress,
-            });
-          })
-          .catch((e) => console.error(e));
-      }
+      api
+        .get("" + payload.address)
+        .then((res) => {
+          commit(payload.commit, {
+            data: res.data,
+            address: payload.commitAddress,
+          });
+        })
+        .catch((e) => console.error(e));
     },
     getOne({ commit }, payload) {
       api

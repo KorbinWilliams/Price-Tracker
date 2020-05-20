@@ -8,9 +8,9 @@ export default class ScraperController {
     this.router = express
       .Router()
       // .use(Authorize.authenticated)
-      .get("/:url", this.getAll)
+      // .get("", this.getAll)
       // .get('/:id', this.getById)
-      // .post('', this.create)
+      .post("", this.getAll)
       // .put('/:id', this.edit)
       // .delete('/:id', this.delete)
       .use(this.defaultRoute);
@@ -22,7 +22,7 @@ export default class ScraperController {
 
   async getAll(req, res, next) {
     try {
-      let data = await _scraperService.getAll(req.params.url);
+      let data = await _scraperService.getAll(req.body.url);
       console.log(data);
       return res.send(data);
     } catch (err) {
