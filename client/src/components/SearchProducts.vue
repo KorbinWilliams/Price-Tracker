@@ -12,6 +12,7 @@
               placeholder="search products"
               v-model="searchQuery"
             />
+            <button>search</button>
           </div>
         </div>
         <div class="col-4">
@@ -19,7 +20,9 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">v-for search results product/price and add product</div>
+        <div class="col">
+          <div class="row" v-for="searchResult in searchResults" :key="searchResult.id"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -32,6 +35,24 @@ export default {
     return {
       searchQuery: "dog toys"
     };
+  },
+  methods: {
+    searchForProducts() {
+      // TODO Make this more flexible later
+      this.$store.dispatch("create", {
+        commit: "setItem",
+        address: "scraper",
+        commitAddress: "searchResults",
+        data: {
+          url: "https://www.amazon.com/s?k=dog+treat&ref=nb_sb_noss_2"
+        }
+      });
+    }
+  },
+  computed: {
+    searchResults() {
+      return this.$store.state.searchResults;
+    }
   }
 };
 </script>
