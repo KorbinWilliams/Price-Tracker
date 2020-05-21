@@ -21,7 +21,14 @@
       </div>
       <div class="row">
         <div class="col">
-          <div class="row" v-for="searchResult in searchResults" :key="searchResult.id"></div>
+          <div class="row" v-for="searchResult in searchResults" :key="searchResult.id">
+            <div class="col-3">{{searchResult.image}}</div>
+            <div class="col-3">{{searchResult.title}}</div>
+            <div class="col-3">{{searchResult.price}}</div>
+            <div class="col-3">
+              <button @click="addProduct(searchResult)">track product</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -46,6 +53,14 @@ export default {
         data: {
           url: "https://www.amazon.com/s?k=dog+treat&ref=nb_sb_noss_2"
         }
+      });
+    },
+    addProduct(product) {
+      this.$store.dispatch("create", {
+        commit: "addItem",
+        address: "myProducts",
+        commitAddress: "MyProducts",
+        data: product
       });
     }
   },

@@ -21,6 +21,8 @@ export default new Vuex.Store({
   state: {
     user: {},
     searchResults: [],
+    myProducts: [],
+    activeProduct: {},
   },
   mutations: {
     setUser(state, user) {
@@ -30,6 +32,8 @@ export default new Vuex.Store({
       state = {
         user: {},
         searchResults: [],
+        myProducts: [],
+        activeProduct: {},
       };
     },
     setItem(state, payload) {
