@@ -5,8 +5,9 @@ let ObjectId = Schema.Types.ObjectId;
 const MyProduct = new Schema(
   {
     url: { type: String, required: true },
-    price: { type: Number, required: true },
-    description: { type: String, required: true },
+    price: { type: String, required: true },
+    title: { type: String, required: true },
+    image: { type: String, required: true },
     desiredPrice: { type: Number },
     authorId: { type: ObjectId, ref: "User", required: true, immutable: true },
   },

@@ -1,7 +1,7 @@
 <template>
   <div class="navBar">
     <div class="row" id="navBox">
-      <div class="col-2 offset-3">
+      <div class="col-2 offset-4">
         <router-link to="/home" class="links">Home</router-link>
       </div>
       <div class="col-2">

@@ -13,7 +13,7 @@ let base = window.location.host.includes("localhost:8080")
 
 let api = Axios.create({
   baseURL: base + "api/",
-  timeout: 6000,
+  timeout: 20000,
   withCredentials: true,
 });
 
@@ -38,6 +38,9 @@ export default new Vuex.Store({
     },
     setItem(state, payload) {
       state[payload.address] = payload.data;
+    },
+    addItem(state, payload) {
+      state[payload.address].push(payload.data);
     },
     removeItem(state, payload) {
       state[payload.address] = state[payload.address].filter(
@@ -124,6 +127,7 @@ export default new Vuex.Store({
       api
         .post("" + payload.address, payload.data)
         .then((res) => {
+          console.log(res);
           commit(payload.commit, {
             data: res.data,
             address: payload.commitAddress,
