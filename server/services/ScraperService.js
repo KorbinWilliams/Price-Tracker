@@ -5,7 +5,6 @@ import puppeteer from "puppeteer";
 // const _repository = mongoose.model('Scraper', Scraper)
 
 class ScraperService {
-  // TODO Need to decide how complicated this will be. First make the static querys. Then possibly expand to things like url specific querys/filters.
   //NOTE need to check query-selectors. Might be differences in screen size(is puppeteer screen size constant?) const puppeteer = require('puppeteer');
   // const iPhone = puppeteer.devices['iPhone 6'];
   // (async () => {
@@ -17,23 +16,38 @@ class ScraperService {
   //   await browser.close();
   // })();
   async getProductArray(url) {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer
+      .launch
+      // { headless: false }
+      ();
     const page = await browser.newPage();
     await page.goto(url);
     try {
       let productArray = await page.evaluate(() =>
         Array.from(document.querySelectorAll("div.s-include-content-margin"))
-          .map((product) => ({
-            title: product.querySelector("h2 span").textContent,
-            image: product.querySelector("img").src,
-            //NOTE need to take off price evaluate separately
-            price: product.querySelector("div.a-size-base").innerHTML || 0,
-          }))
+          .map((product) => {
+            if (product.querySelector(".a-price-whole")) {
+              return {
+                title: product.querySelector("h2 span").textContent,
+                image: product.querySelector("img").src,
+                //NOTE need to take off price evaluate separately
+                price: product.querySelector("div.a-size-base").innerHTML,
+              };
+            } else
+              return {
+                title: product.querySelector("h2 span").textContent,
+                image: product.querySelector("img").src,
+                //NOTE need to take off price evaluate separately
+                price: 0,
+              };
+          })
           .slice(0, 10)
       );
+      // NOTE Need to watch out for the browser.close()
+      await browser.close();
       return productArray;
     } catch (error) {
-      this.getProductArray(url);
+      console.log(error);
     }
   }
   // NOTE Takes the price which is a string of html and extracts the price if possible
@@ -51,6 +65,7 @@ class ScraperService {
         }
       }
     }
+
     return productArray;
   }
 
