@@ -3,10 +3,10 @@
     <navBar />
     <!-- TODO Eventually combine product list and active product to take same space v-if -->
     <div class="row">
-      <div class="col-5 offset-1">
+      <div v-if="this.$store.state.listView == true" class="col-10 offset-1">
         <productList class="product-box" />
       </div>
-      <div class="col-5">
+      <div v-if="this.$store.state.listView == false" class="col-10 offset-1">
         <singleProduct class="product-box" />
       </div>
     </div>
@@ -21,6 +21,21 @@ import router from "@/router/index.js";
 
 export default {
   name: "myProducts",
+  mounted() {
+    this.getMyProducts();
+  },
+  data() {
+    return {};
+  },
+  methods: {
+    getMyProducts() {
+      this.$store.dispatch("get", {
+        address: "myProducts",
+        commit: "setItem",
+        commitAddress: "myProducts"
+      });
+    }
+  },
   components: {
     productList,
     navBar,

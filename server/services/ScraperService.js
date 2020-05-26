@@ -15,6 +15,8 @@ class ScraperService {
   //   // other actions...
   //   await browser.close();
   // })();
+
+  // NOTE Takes in a url ,goes to page, creates an array from the results.
   async getProductArray(url) {
     const browser = await puppeteer
       .launch
@@ -30,14 +32,12 @@ class ScraperService {
               return {
                 title: product.querySelector("h2 span").textContent,
                 image: product.querySelector("img").src,
-                //NOTE need to take off price evaluate separately
                 price: product.querySelector("div.a-size-base").innerHTML,
               };
             } else
               return {
                 title: product.querySelector("h2 span").textContent,
                 image: product.querySelector("img").src,
-                //NOTE need to take off price evaluate separately
                 price: 0,
               };
           })
@@ -50,6 +50,7 @@ class ScraperService {
       console.log(error);
     }
   }
+
   // NOTE Takes the price which is a string of html and extracts the price if possible
   replacePrice(productArray) {
     for (let i = 0; i < productArray.length; i++) {

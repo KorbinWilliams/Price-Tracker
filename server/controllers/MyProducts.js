@@ -22,7 +22,7 @@ export default class MyProductController {
   async getAll(req, res, next) {
     try {
       let data = await _myProductService.getAll(req.session.uid);
-      return data;
+      return res.send(data);
     } catch (error) {
       next(error);
     }

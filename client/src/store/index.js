@@ -23,6 +23,7 @@ export default new Vuex.Store({
     searchResults: [],
     myProducts: [],
     activeProduct: {},
+    listView: true,
   },
   mutations: {
     setUser(state, user) {
@@ -34,6 +35,7 @@ export default new Vuex.Store({
         searchResults: [],
         myProducts: [],
         activeProduct: {},
+        listView: true,
       };
     },
     setItem(state, payload) {

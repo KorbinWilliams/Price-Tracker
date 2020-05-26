@@ -6,9 +6,16 @@
           <h3>My products</h3>
         </div>
       </div>
-      <div class="row" v-for="myProduct in myProducts" :key="myProduct.id">
-        <div class="col-4">{{myProduct.image}}</div>
-        <div class="col-4">{{myProduct.title}}</div>
+      <div
+        class="row product-row"
+        v-for="myProduct in myProducts"
+        :key="myProduct.id"
+        @click="selectProduct(myProduct)"
+      >
+        <div class="col-4">
+          <img class="product-image" :src="myProduct.image" alt="product image" />
+        </div>
+        <div class="col-4">{{myProduct.title.slice(0, 50)}}...</div>
         <div class="col-4">{{myProduct.price}}</div>
       </div>
     </div>
@@ -16,8 +23,23 @@
 </template>
 
 <script>
+// TODO Need to make pagination for every 4 products later
 export default {
   name: "productList",
+  methods: {
+    selectProduct(Product) {
+      this.$store.dispatch("setActive", {
+        data: Product,
+        commit: "setItem",
+        commitAddress: "activeProduct"
+      });
+      this.$store.dispatch("setActive", {
+        data: false,
+        commit: "setItem",
+        commitAddress: "listView"
+      });
+    }
+  },
   computed: {
     myProducts() {
       return this.$store.state.myProducts;
@@ -32,5 +54,12 @@ export default {
   padding-top: 1vh;
   display: flex;
   justify-content: center;
+}
+.product-image {
+  height: 150px;
+  width: 150px;
+}
+.product-row {
+  padding-top: 1vh;
 }
 </style>
