@@ -10,7 +10,7 @@
         class="row product-row"
         v-for="myProduct in myProducts"
         :key="myProduct.id"
-        @click="selectProduct(myProduct)"
+        @mouseover="selectProduct(myProduct)"
       >
         <div class="col-4">
           <img class="product-image" :src="myProduct.image" alt="product image" />
@@ -24,6 +24,7 @@
 
 <script>
 // TODO Need to make pagination for every 4 products later
+// TODO Need to make @mouseoff??
 export default {
   name: "productList",
   methods: {

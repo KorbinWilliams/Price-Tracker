@@ -23,6 +23,15 @@
 <script>
 export default {
   name: "singleProduct",
+  methods: {
+    changeListView() {
+      this.$store.dispatch("setActive", {
+        data: true,
+        commit: "setItem",
+        commitAddress: "listView"
+      });
+    }
+  },
   computed: {
     activeProduct() {
       return this.$store.state.activeProduct;
