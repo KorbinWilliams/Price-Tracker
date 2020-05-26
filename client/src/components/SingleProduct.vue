@@ -6,14 +6,14 @@
           <h4>{{activeProduct.title}}</h4>
         </div>
       </div>
-      <div class="row">
+      <div class="row product-image-row">
         <div class="col-12">
           <img :src="activeProduct.image" class="single-product-image" alt="Product Image" />
         </div>
       </div>
       <div class="row product-price-row">
         <div class="col-12">
-          <h4 class="product-price-text">{{activeProduct.price}}</h4>
+          <h3 class="product-price-text">{{activeProduct.price}}</h3>
         </div>
       </div>
     </div>
@@ -39,6 +39,11 @@ export default {
 }
 .product-price-row {
   padding-top: 5vh;
-  text-decoration: blink navy;
+}
+.product-price-text {
+  font-weight: bolder;
+}
+.product-image-row {
+  padding-top: 5vh;
 }
 </style>
