@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 let Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId;
+let Decimal = Schema.Types.Decimal128;
 
 const MyProduct = new Schema(
   {
@@ -8,7 +9,7 @@ const MyProduct = new Schema(
     price: { type: String, required: true },
     title: { type: String, required: true },
     image: { type: String, required: true },
-    desiredPrice: { type: Number, default: 0 },
+    desiredPrice: { type: Decimal, default: 0 },
     authorId: { type: ObjectId, ref: "User", required: true, immutable: true },
   },
   { timestamps: true }

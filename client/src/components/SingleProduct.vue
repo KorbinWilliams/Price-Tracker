@@ -1,12 +1,12 @@
 <template>
   <div class="singleProduct row">
-    <div class="col-12" @click="changeListView">
+    <div class="col-12">
       <div class="row">
-        <div class="col-12 title">
+        <div class="col-12 title" @click="changeListView">
           <h4>{{activeProduct.title}}</h4>
         </div>
       </div>
-      <div class="row product-image-row">
+      <div class="row product-image-row" @click="changeListView">
         <div class="col-12">
           <img :src="activeProduct.image" class="single-product-image" alt="Product Image" />
         </div>
@@ -18,6 +18,9 @@
       </div>
       <div class="col-12">
         <div class="row">
+          <div class="col-12">
+            <p>Set desired price</p>
+          </div>
           <div class="col-3 offset-3">
             <div class="form-group">
               <input
