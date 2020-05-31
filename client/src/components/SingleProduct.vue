@@ -1,6 +1,6 @@
 <template>
   <div class="singleProduct row">
-    <div class="col-12">
+    <div class="col-12" @click="changeListView">
       <div class="row">
         <div class="col-12 title">
           <h4>{{activeProduct.title}}</h4>

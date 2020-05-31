@@ -10,7 +10,7 @@
         class="row product-row"
         v-for="myProduct in myProducts"
         :key="myProduct.id"
-        @mouseover="selectProduct(myProduct)"
+        @click="selectProduct(myProduct)"
       >
         <div class="col-4">
           <img class="product-image" :src="myProduct.image" alt="product image" />
