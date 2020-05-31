@@ -16,6 +16,24 @@
           <h3 class="product-price-text">{{activeProduct.price}}</h3>
         </div>
       </div>
+      <div class="col-12">
+        <div class="row">
+          <div class="col-3 offset-3">
+            <div class="form-group">
+              <input
+                type="text"
+                name="desiredPriceForm"
+                class="form-control"
+                placeholder="desired price"
+                v-model="desiredPrice"
+              />
+            </div>
+          </div>
+          <div class="col-2">
+            <button @click="changeDesiredPrice">submit</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -23,12 +41,34 @@
 <script>
 export default {
   name: "singleProduct",
+  data() {
+    return {
+      desiredPrice: 0
+    };
+  },
   methods: {
     changeListView() {
       this.$store.dispatch("setActive", {
         data: true,
         commit: "setItem",
         commitAddress: "listView"
+      });
+    },
+    changeDesiredPrice() {
+      let product = this.$store.state.activeProduct;
+      this.$store.dispatch("edit", {
+        data: {
+          _id: product._id,
+          authorId: product.authorId,
+          image: product.image,
+          price: product.price,
+          title: product.title,
+          url: product.url,
+          desiredPrice: this.desiredPrice
+        },
+        address: "myProducts",
+        commitAddress: "myProducts",
+        commit: "editItem"
       });
     }
   },

@@ -52,6 +52,12 @@ export default new Vuex.Store({
     resetItem(state, payload) {
       state[payload.address].clear();
     },
+    editItem(state, payload) {
+      state[payload.address] = state[payload.address].filter(
+        (item) => item._id != payload.data._id
+      );
+      state[payload.address].push(payload.data);
+    },
   },
   actions: {
     //SECTION  -- AUTH STUFF --

@@ -8,7 +8,7 @@ const MyProduct = new Schema(
     price: { type: String, required: true },
     title: { type: String, required: true },
     image: { type: String, required: true },
-    desiredPrice: { type: Number },
+    desiredPrice: { type: Number, default: 0 },
     authorId: { type: ObjectId, ref: "User", required: true, immutable: true },
   },
   { timestamps: true }

@@ -6,17 +6,13 @@
           <h3>My products</h3>
         </div>
       </div>
-      <div
-        class="row product-row"
-        v-for="myProduct in myProducts"
-        :key="myProduct.id"
-        @click="selectProduct(myProduct)"
-      >
+      <div class="row product-row" v-for="myProduct in myProducts" :key="myProduct.id">
         <div class="col-4">
           <img class="product-image" :src="myProduct.image" alt="product image" />
         </div>
-        <div class="col-4">{{myProduct.title.slice(0, 50)}}...</div>
-        <div class="col-4">{{myProduct.price}}</div>
+        <div class="col-4" @click="selectProduct(myProduct)">{{myProduct.title.slice(0, 50)}}...</div>
+        <div class="col-2">{{myProduct.price}}</div>
+        <div class="col-2">${{myProduct.desiredPrice}}</div>
       </div>
     </div>
   </div>
@@ -27,6 +23,11 @@
 // TODO Need to make @mouseoff??
 export default {
   name: "productList",
+  data() {
+    return {
+      desiredPrice: 0
+    };
+  },
   methods: {
     selectProduct(Product) {
       this.$store.dispatch("setActive", {
