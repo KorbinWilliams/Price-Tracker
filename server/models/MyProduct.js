@@ -6,7 +6,7 @@ let Decimal = Schema.Types.Decimal128;
 const MyProduct = new Schema(
   {
     url: { type: String, required: true },
-    price: { type: String, required: true },
+    price: { type: Decimal, required: true },
     title: { type: String, required: true },
     image: { type: String, required: true },
     desiredPrice: { type: Decimal, default: 0 },

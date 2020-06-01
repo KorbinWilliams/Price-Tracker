@@ -12,8 +12,11 @@
         </div>
       </div>
       <div class="row product-price-row">
-        <div class="col-12">
-          <h3 class="product-price-text">{{activeProduct.price}}</h3>
+        <div class="col-6">
+          <h3 class="product-price-text">{{(activeProduct.price)}}</h3>
+        </div>
+        <div class="col-6">
+          <h3 class="product-price-text">${{activeProduct.desiredPrice.$numberDecimal}}</h3>
         </div>
       </div>
       <div class="col-12">

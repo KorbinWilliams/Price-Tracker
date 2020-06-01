@@ -93,6 +93,7 @@ export default {
         "https://www.amazon.com/s?k=" +
         this.modifyQuery() +
         "&ref=nb_sb_noss_2";
+      product.price = parseFloat(product.price);
 
       this.$store.dispatch("create", {
         commit: "addItem",
