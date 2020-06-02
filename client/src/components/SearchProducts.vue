@@ -62,6 +62,7 @@ export default {
   },
   methods: {
     modifyQuery() {
+      // NOTE Replaces spaces in searchQuery with +'s
       let query = this.searchQuery.split(" ");
       let newQuery = "";
       for (let i = 0; i < query.length; i++) {
@@ -73,8 +74,8 @@ export default {
       newQuery = newQuery.slice(0, queryLength);
       return newQuery;
     },
+    // NOTE Takes in a query converts it to an amazon search and returns the top 10 results
     searchForProducts() {
-      // TODO Make this more flexible later
       this.$store.dispatch("create", {
         commit: "setItem",
         address: "scraper",
@@ -87,13 +88,15 @@ export default {
         }
       });
     },
+    // NOTE Takes in a search result converts it to myProduct format and saves it
     addProduct(product) {
       console.log(product);
       product.url =
         "https://www.amazon.com/s?k=" +
         this.modifyQuery() +
         "&ref=nb_sb_noss_2";
-      product.price = parseFloat(product.price);
+      product.originalPrice = parseFloat(product.price);
+      product.currentPrice = parseFloat(product.price);
 
       this.$store.dispatch("create", {
         commit: "addItem",

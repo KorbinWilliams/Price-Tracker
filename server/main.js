@@ -39,10 +39,12 @@ server.use("/account", new UserController().router);
 
 // Other routes
 import ScraperController from "./controllers/ScraperController";
-import MyProductController from "./controllers/MyProducts";
+import MyProductController from "./controllers/MyProductsController";
+import PriceCheckerController from "./controllers/PriceCheckerController";
 
 server.use("/api/scraper", new ScraperController().router);
 server.use("/api/myProducts", new MyProductController().router);
+server.use("./api/priceChecker", new PriceCheckerController().router);
 
 //NOTE Default error handler, catches all routes with an error attached
 server.use((error, req, res, next) => {
