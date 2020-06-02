@@ -11,9 +11,17 @@
           <img :src="activeProduct.image" class="single-product-image" alt="Product Image" />
         </div>
       </div>
+      <div class="row price-labels">
+        <div class="col-6">
+          <h4>original price</h4>
+        </div>
+        <div class="col-6">
+          <h4>desired price</h4>
+        </div>
+      </div>
       <div class="row product-price-row">
         <div class="col-6">
-          <h3 class="product-price-text">{{(activeProduct.price)}}</h3>
+          <h3 class="product-price-text">${{activeProduct.price.$numberDecimal}}</h3>
         </div>
         <div class="col-6">
           <h3 class="product-price-text">${{activeProduct.desiredPrice.$numberDecimal}}</h3>
@@ -92,13 +100,16 @@ export default {
   width: 70vw;
   border: 2px solid black;
 }
-.product-price-row {
-  padding-top: 5vh;
-}
+/* .product-price-row {
+  
+} */
 .product-price-text {
   font-weight: bolder;
 }
 .product-image-row {
+  padding-top: 5vh;
+}
+.price-labels {
   padding-top: 5vh;
 }
 </style>

@@ -33,17 +33,19 @@ class ScraperService {
                 title: product.querySelector("h2 span").textContent,
                 image: product.querySelector("img").src,
                 price: product.querySelector("div.a-size-base").innerHTML,
+                productLink: product.querySelector("h2").innerHTML,
               };
             } else
               return {
                 title: product.querySelector("h2 span").textContent,
                 image: product.querySelector("img").src,
                 price: 0,
+                productLink: product.querySelector("h2").innerHTML,
               };
           })
           .slice(0, 10)
       );
-      // NOTE Need to watch out for the browser.close()
+
       await browser.close();
       return productArray;
     } catch (error) {
@@ -70,6 +72,20 @@ class ScraperService {
     return productArray;
   }
 
+  // NOTE takes the html from productLink cuts out the link html makes a substring for the link
+  replaceProductLink(productArray) {
+    for (let i = 0; i < productArray.length; i++) {
+      let product = productArray[i];
+      let beggining = product.productLink.indexOf("<");
+      let end = product.productLink.indexOf(">");
+      let linkHtml = product.productLink.substring(beggining, end);
+      let linkHtmlEnd = linkHtml.length - 2;
+      product.productLink = linkHtml.substring(48, linkHtmlEnd);
+      product.productLink = "https://www.amazon.com/" + product.productLink;
+    }
+    return productArray;
+  }
+
   async getAll(url) {
     //NOTE Takes in url returns product array
     let urlArr = url.split(".");
@@ -81,9 +97,11 @@ class ScraperService {
       if (productArray == undefined) {
         productArray = await this.getProductArray(url);
         productArray = this.replacePrice(productArray);
+        productArray = this.replaceProductLink(productArray);
         return productArray;
       } else {
         productArray = this.replacePrice(productArray);
+        productArray = this.replaceProductLink(productArray);
         return productArray;
       }
     }

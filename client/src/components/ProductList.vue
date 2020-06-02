@@ -8,11 +8,16 @@
       </div>
       <div class="row product-row" v-for="myProduct in myProducts" :key="myProduct.id">
         <div class="col-4">
-          <img class="product-image" :src="myProduct.image" alt="product image" />
+          <img
+            @click="selectProduct(myProduct)"
+            class="product-image"
+            :src="myProduct.image"
+            alt="product image"
+          />
         </div>
         <div class="col-4" @click="selectProduct(myProduct)">{{myProduct.title.slice(0, 50)}}...</div>
-        <div class="col-2">{{myProduct.price}}</div>
-        <div class="col-2">${{myProduct.desiredPrice}}</div>
+        <div class="col-2">${{myProduct.price.$numberDecimal}}</div>
+        <div class="col-2">${{myProduct.desiredPrice.$numberDecimal}}</div>
       </div>
     </div>
   </div>
