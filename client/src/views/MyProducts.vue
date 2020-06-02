@@ -23,6 +23,7 @@ export default {
   name: "myProducts",
   mounted() {
     this.getMyProducts();
+    setTimeout(this.checkCurrentPrices(), 1500);
   },
   data() {
     return {};
@@ -32,6 +33,14 @@ export default {
       this.$store.dispatch("get", {
         address: "myProducts",
         commit: "setItem",
+        commitAddress: "myProducts"
+      });
+    },
+    checkCurrentPrices() {
+      this.$store.dispatch("create", {
+        address: "priceChecker",
+        commit: "setItem",
+        data: this.$store.state.myProducts,
         commitAddress: "myProducts"
       });
     }

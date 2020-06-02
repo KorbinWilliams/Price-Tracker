@@ -12,7 +12,9 @@ class PriceCheckerService {
       product.currentPrice = await page.evaluate(
         () => document.querySelector("table.a-lineitem td span").textContent
       );
+      await browser.close();
     }
+    return productArray;
   }
 }
 

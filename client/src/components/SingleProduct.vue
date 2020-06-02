@@ -21,7 +21,7 @@
       </div>
       <div class="row product-price-row">
         <div class="col-6">
-          <h3 class="product-price-text">${{activeProduct.price.$numberDecimal}}</h3>
+          <h3 class="product-price-text">${{activeProduct.originalPrice.$numberDecimal}}</h3>
         </div>
         <div class="col-6">
           <h3 class="product-price-text">${{activeProduct.desiredPrice.$numberDecimal}}</h3>

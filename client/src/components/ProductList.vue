@@ -16,7 +16,7 @@
           />
         </div>
         <div class="col-4" @click="selectProduct(myProduct)">{{myProduct.title.slice(0, 50)}}...</div>
-        <div class="col-2">${{myProduct.price.$numberDecimal}}</div>
+        <div class="col-2">${{myProduct.originalPrice.$numberDecimal}}</div>
         <div class="col-2">${{myProduct.desiredPrice.$numberDecimal}}</div>
       </div>
     </div>
