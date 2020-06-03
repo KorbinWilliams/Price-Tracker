@@ -9,9 +9,13 @@ class PriceCheckerService {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto(product.productLink);
-      product.currentPrice = await page.evaluate(
-        () => document.querySelector("table.a-lineitem td span").textContent
-      );
+      try {
+        product.currentPrice.$numberDecimal = await page.evaluate(
+          () => document.querySelector("table.a-lineitem td span").textContent
+        );
+      } catch (e) {
+        console.log(e);
+      }
       await browser.close();
     }
     return productArray;
