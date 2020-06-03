@@ -7,7 +7,7 @@
         </div>
       </div>
       <div class="row product-row" v-for="myProduct in myProducts" :key="myProduct.id">
-        <div class="col-4">
+        <div class="col-6">
           <img
             @click="selectProduct(myProduct)"
             class="product-image"
@@ -15,9 +15,28 @@
             alt="product image"
           />
         </div>
-        <div class="col-4" @click="selectProduct(myProduct)">{{myProduct.title.slice(0, 50)}}...</div>
-        <div class="col-2">${{myProduct.originalPrice.$numberDecimal}}</div>
-        <div class="col-2">${{myProduct.desiredPrice.$numberDecimal}}</div>
+        <div class="col-6" @click="selectProduct(myProduct)">{{myProduct.title.slice(0, 50)}}...</div>
+        <div class="col-12">
+          <div class="row">
+            <div class="col-4">
+              <p>original price</p>
+            </div>
+            <div class="col-4">
+              <p>desired price</p>
+            </div>
+            <div class="col-4">
+              <p>current price</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">${{myProduct.originalPrice.$numberDecimal}}</div>
+            <div class="col-4">${{myProduct.desiredPrice.$numberDecimal}}</div>
+            <div
+              class="col-4"
+              @click="test(myProduct.currentPrice.$numberDecimal)"
+            >${{myProduct.currentPrice.$numberDecimal}}</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -45,6 +64,9 @@ export default {
         commit: "setItem",
         commitAddress: "listView"
       });
+    },
+    test(num) {
+      console.log(Number(num));
     }
   },
   computed: {

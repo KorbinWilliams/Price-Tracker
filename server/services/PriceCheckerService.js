@@ -16,6 +16,16 @@ class PriceCheckerService {
       } catch (e) {
         console.log(e);
       }
+      if (product.currentPrice.$numberDecimal != undefined) {
+        let curPrice = product.currentPrice.$numberDecimal;
+        let dollarSign = curPrice.indexOf("$");
+        if (dollarSign != -1) {
+          product.currentPrice.$numberDecimal = Number(
+            curPrice.substring(dollarSign + 1, curPrice.length)
+          );
+          console.log(curPrice);
+        }
+      }
       await browser.close();
     }
     return productArray;
