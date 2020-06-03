@@ -23,11 +23,12 @@
         <div class="col">
           <div class="row" v-for="(searchResult, index) in searchResults1" :key="index">
             <div class="col">
+              <div class="row"></div>
               <div class="row">
-                <div class="col-12">{{searchResult.image}}</div>
-              </div>
-              <div class="row">
-                <div class="col-12">{{searchResult.title.slice(0, 50)}}...</div>
+                <div class="col-4">
+                  <img class="searchImage" :src="searchResult.image" alt />
+                </div>
+                <div class="col-8">{{searchResult.title.slice(0, 50)}}...</div>
               </div>
               <div class="row">
                 <div class="col-9">{{searchResult.price}}</div>
@@ -39,10 +40,16 @@
           </div>
           <div class="row pageBtn">
             <div v-if="page == 1" class="col">
-              <button @click="nextSearchResults">Next page</button>
+              <button @click="nextSearchResults">2</button>
+              <button>3</button>
             </div>
             <div v-if="page == 2" class="col">
-              <button @click="nextSearchResults">Previous page</button>
+              <button @click="nextSearchResults">1</button>
+              <button>3</button>
+            </div>
+            <div v-if="page == 3" class="col">
+              <button>1</button>
+              <button>2</button>
             </div>
           </div>
         </div>
@@ -116,9 +123,11 @@ export default {
   computed: {
     searchResults1() {
       if (this.page == 1) {
-        return this.$store.state.searchResults.slice(0, 5);
+        return this.$store.state.searchResults.slice(0, 4);
+      } else if (this.page == 2) {
+        return this.$store.state.searchResults.slice(5, 9);
       } else {
-        return this.$store.state.searchResults.slice(5, 10);
+        return this.$store.state.searchResults.slice(10, 13);
       }
     }
   }
@@ -127,7 +136,7 @@ export default {
 
 <style>
 #searchBox {
-  background-color: chartreuse;
+  background-color: rgb(248, 234, 34);
   margin-top: 5vh;
   height: 60vh;
   border: 2px solid black;
@@ -137,5 +146,9 @@ export default {
 }
 .pageBtn {
   padding-top: 5rem;
+}
+.searchImage {
+  height: 100px;
+  width: 100px;
 }
 </style>

@@ -32,7 +32,7 @@
             <div class="col-4">${{myProduct.originalPrice.$numberDecimal}}</div>
             <div class="col-4">${{myProduct.desiredPrice.$numberDecimal}}</div>
             <div
-              class="col-4"
+              class="col-4 curPrice"
               @click="test(myProduct.currentPrice.$numberDecimal)"
             >${{myProduct.currentPrice.$numberDecimal}}</div>
           </div>
@@ -49,7 +49,8 @@ export default {
   name: "productList",
   data() {
     return {
-      desiredPrice: 0
+      desiredPrice: 0,
+      curPriceColor: black
     };
   },
   methods: {
@@ -85,11 +86,15 @@ export default {
   justify-content: center;
 }
 .product-image {
+  border: 2px solid black;
   height: 150px;
   width: 150px;
 }
 .product-row {
   border-top: 2px solid black;
   padding-top: 1vh;
+}
+.curPrice {
+  color: curPriceColor;
 }
 </style>
