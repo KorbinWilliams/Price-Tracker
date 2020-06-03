@@ -1,6 +1,8 @@
 <template>
   <div class="row">
-    <div class="col-8 offset-2" id="productBox">product display</div>
+    <div class="col-8 offset-2" id="productBox">
+      <h1>Amazon price tracker</h1>
+    </div>
   </div>
 </template>
 

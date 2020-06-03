@@ -12,19 +12,25 @@
         </div>
       </div>
       <div class="row price-labels">
-        <div class="col-6">
+        <div class="col-4">
           <h4>original price</h4>
         </div>
-        <div class="col-6">
+        <div class="col-4">
           <h4>desired price</h4>
+        </div>
+        <div class="col-4">
+          <h4>current price</h4>
         </div>
       </div>
       <div class="row product-price-row">
-        <div class="col-6">
+        <div class="col-4">
           <h3 class="product-price-text">${{activeProduct.originalPrice.$numberDecimal}}</h3>
         </div>
-        <div class="col-6">
+        <div class="col-4">
           <h3 class="product-price-text">${{activeProduct.desiredPrice.$numberDecimal}}</h3>
+        </div>
+        <div class="col-4">
+          <h3 class="product-price-text">${{activeProduct.currentPrice.$numberDecimal}}</h3>
         </div>
       </div>
       <div class="col-12">

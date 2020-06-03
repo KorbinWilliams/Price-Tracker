@@ -89,6 +89,7 @@ export default {
   width: 150px;
 }
 .product-row {
+  border-top: 2px solid black;
   padding-top: 1vh;
 }
 </style>
