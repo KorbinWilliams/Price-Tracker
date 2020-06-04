@@ -21,8 +21,10 @@ export default {
   justify-content: center;
   align-items: center;
   border: 2px solid black;
+  border-radius: 50%;
 }
 .head-text {
   color: white;
+  text-shadow: black 2px 2px 2px;
 }
 </style>

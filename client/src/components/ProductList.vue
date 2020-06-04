@@ -6,7 +6,7 @@
           <h3>My products</h3>
         </div>
       </div>
-      <div class="row product-row" v-for="myProduct in myProducts" :key="myProduct.id">
+      <div class="row product-row" v-for="(myProduct, index) in myProducts" :key="myProduct.id">
         <div class="col-6">
           <img
             @click="selectProduct(myProduct)"
@@ -31,10 +31,7 @@
           <div class="row">
             <div class="col-4">${{myProduct.originalPrice.$numberDecimal}}</div>
             <div class="col-4">${{myProduct.desiredPrice.$numberDecimal}}</div>
-            <div
-              class="col-4 curPrice"
-              @click="test(myProduct.currentPrice.$numberDecimal)"
-            >${{myProduct.currentPrice.$numberDecimal}}</div>
+            <div :id="index" class="col-4 curPrice">${{myProduct.currentPrice.$numberDecimal}}</div>
           </div>
         </div>
       </div>
@@ -50,7 +47,7 @@ export default {
   data() {
     return {
       desiredPrice: 0,
-      curPriceColor: black
+      curPriceColor: "black"
     };
   },
   methods: {
@@ -66,8 +63,13 @@ export default {
         commitAddress: "listView"
       });
     },
-    test(num) {
-      console.log(Number(num));
+    priceTracker() {
+      for (let i = 0; i < myProducts.length; i++) {
+        const product = myProducts[i];
+        if (product.currentPrice < product.desiredPrice) {
+          root.style.setProperty();
+        }
+      }
     }
   },
   computed: {
@@ -95,6 +97,6 @@ export default {
   padding-top: 1vh;
 }
 .curPrice {
-  color: curPriceColor;
+  --color: {{this.curPriceColor}}
 }
 </style>

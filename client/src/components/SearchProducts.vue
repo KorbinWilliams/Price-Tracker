@@ -12,7 +12,7 @@
               placeholder="search products"
               v-model="searchQuery"
             />
-            <button @click="searchForProducts">search</button>
+            <button class="btn" @click="searchForProducts">search</button>
           </div>
         </div>
         <div class="col-4">
@@ -21,7 +21,11 @@
       </div>
       <div class="row">
         <div class="col">
-          <div class="row" v-for="(searchResult, index) in searchResults1" :key="index">
+          <div
+            class="row searchResult"
+            v-for="(searchResult, index) in searchResults1"
+            :key="index"
+          >
             <div class="col">
               <div class="row"></div>
               <div class="row">
@@ -33,23 +37,16 @@
               <div class="row">
                 <div class="col-9">{{searchResult.price}}</div>
                 <div class="col-3">
-                  <button @click="addProduct(searchResult)">track product</button>
+                  <button class="btn btn-success" @click="addProduct(searchResult)">track product</button>
                 </div>
               </div>
             </div>
           </div>
           <div class="row pageBtn">
-            <div v-if="page == 1" class="col">
-              <button @click="nextSearchResults">2</button>
-              <button>3</button>
-            </div>
-            <div v-if="page == 2" class="col">
-              <button @click="nextSearchResults">1</button>
-              <button>3</button>
-            </div>
-            <div v-if="page == 3" class="col">
-              <button>1</button>
-              <button>2</button>
+            <div class="col">
+              <button @click="nextSearchResults(1)">1</button>
+              <button @click="nextSearchResults(2)">2</button>
+              <button @click="nextSearchResults(3)">3</button>
             </div>
           </div>
         </div>
@@ -59,6 +56,7 @@
 </template>
 
 <script>
+// TODO Fix pagination may need to add more results to equal 12
 export default {
   name: "searchProducts",
   data() {
@@ -112,11 +110,13 @@ export default {
         data: product
       });
     },
-    nextSearchResults() {
-      if (this.page == 1) {
-        this.page = 2;
-      } else {
+    nextSearchResults(num) {
+      if (num == 1) {
         this.page = 1;
+      } else if (num == 2) {
+        this.page = 2;
+      } else if (num == 3) {
+        this.page = 3;
       }
     }
   },
@@ -125,9 +125,12 @@ export default {
       if (this.page == 1) {
         return this.$store.state.searchResults.slice(0, 4);
       } else if (this.page == 2) {
-        return this.$store.state.searchResults.slice(5, 9);
+        return this.$store.state.searchResults.slice(4, 8);
       } else {
-        return this.$store.state.searchResults.slice(10, 13);
+        return this.$store.state.searchResults.slice(
+          8,
+          this.$store.state.searchResults.length
+        );
       }
     }
   }
@@ -144,8 +147,8 @@ export default {
 .searchBar {
   border-bottom: 2px solid black;
 }
-.pageBtn {
-  padding-top: 5rem;
+.searchResult {
+  border-top: 2px solid black;
 }
 .searchImage {
   height: 100px;
