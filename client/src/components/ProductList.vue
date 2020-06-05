@@ -31,7 +31,7 @@
           <div class="row">
             <div class="col-4">${{myProduct.originalPrice.$numberDecimal}}</div>
             <div class="col-4">${{myProduct.desiredPrice.$numberDecimal}}</div>
-            <div :id="index" class="col-4 curPrice">${{myProduct.currentPrice.$numberDecimal}}</div>
+            <div :id="index" class="col-4">${{myProduct.currentPrice.$numberDecimal}}</div>
           </div>
         </div>
       </div>
@@ -40,16 +40,29 @@
 </template>
 
 <script>
+//     mounted() {
+//         this.$root.$on('component1', () => {
+//             // your code goes here
+//             this.c1method()
+//         }
+//     }
+// and in the second component call the $emit function in $root
+
+//     c2method: function(){
+//      this.$root.$emit('component1') //like this
+//     },
 // TODO Need to make pagination for every 4 products later
-// TODO Need to make @mouseoff??
+// TODO Experiment with pagination based on number of products in myProducts
 export default {
   name: "productList",
+  mounted() {},
   data() {
     return {
       desiredPrice: 0,
-      curPriceColor: "black"
+      test: 1
     };
   },
+  watch: {},
   methods: {
     selectProduct(Product) {
       this.$store.dispatch("setActive", {
@@ -64,10 +77,18 @@ export default {
       });
     },
     priceTracker() {
+      const myProducts = this.$store.state.myProducts;
       for (let i = 0; i < myProducts.length; i++) {
-        const product = myProducts[i];
+        let product = myProducts[i];
+        // NOTE Redundant code
+        // let productIndex = myProducts.findIndex(product => product._id == i);
+        let curElem = document.getElementById(`${i}`);
         if (product.currentPrice < product.desiredPrice) {
-          root.style.setProperty();
+          curElem.className = "grnTxt";
+        } else if (product.currentPrice > product.desiredPrice) {
+          curElem.className = "redTxt";
+        } else {
+          curElem.className = "blueTxt";
         }
       }
     }
@@ -96,7 +117,13 @@ export default {
   border-top: 2px solid black;
   padding-top: 1vh;
 }
-.curPrice {
-  --color: {{this.curPriceColor}}
+.redTxt {
+  color: red;
+}
+.grnTxt {
+  color: green;
+}
+.blueTxt {
+  color: blue;
 }
 </style>
