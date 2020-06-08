@@ -2,37 +2,53 @@
   <div class="productList row">
     <div class="col-12">
       <div class="row title">
-        <div class="col-8-offset-2">
-          <h3>My products</h3>
+        <div class="col-8 offset-2">
+          <h3 v-show="info == false">My products</h3>
+          <h3 v-show="info == true">About</h3>
+        </div>
+        <div class="col-2">
+          <button @click="viewInfo" class="btn btn-info">Info</button>
         </div>
       </div>
-      <div class="row product-row" v-for="(myProduct, index) in myProducts" :key="myProduct.id">
-        <div class="col-6">
-          <img
-            @click="selectProduct(myProduct)"
-            class="product-image"
-            :src="myProduct.image"
-            alt="product image"
-          />
+      <div class="row">
+        <div v-show="info == false" class="col-12">
+          <div class="row product-row" v-for="(myProduct, index) in myProducts" :key="myProduct.id">
+            <div class="col-6">
+              <img
+                @click="selectProduct(myProduct)"
+                class="product-image"
+                :src="myProduct.image"
+                alt="product image"
+              />
+            </div>
+            <div class="col-6" @click="selectProduct(myProduct)">
+              <h3 class="productTitle">{{myProduct.title.slice(0, 50)}}...</h3>
+            </div>
+            <div class="col-12">
+              <div class="row">
+                <div class="col-4">
+                  <p>original price</p>
+                </div>
+                <div class="col-4">
+                  <p>desired price</p>
+                </div>
+                <div class="col-4">
+                  <p>current price</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">${{myProduct.originalPrice.$numberDecimal}}</div>
+                <div class="col-4">${{myProduct.desiredPrice.$numberDecimal}}</div>
+                <div
+                  :id="index"
+                  :class="myProduct.colorCode"
+                >${{myProduct.currentPrice.$numberDecimal}}</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-6" @click="selectProduct(myProduct)">{{myProduct.title.slice(0, 50)}}...</div>
-        <div class="col-12">
-          <div class="row">
-            <div class="col-4">
-              <p>original price</p>
-            </div>
-            <div class="col-4">
-              <p>desired price</p>
-            </div>
-            <div class="col-4">
-              <p>current price</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-4">${{myProduct.originalPrice.$numberDecimal}}</div>
-            <div class="col-4">${{myProduct.desiredPrice.$numberDecimal}}</div>
-            <div :id="index" :class="myProduct.colorCode">${{myProduct.currentPrice.$numberDecimal}}</div>
-          </div>
+        <div v-show="info == true" class="col-12">
+          <about />
         </div>
       </div>
     </div>
@@ -41,6 +57,7 @@
 
 <script>
 // TODO Experiment with pagination based on number of products in myProducts
+import about from "./About";
 
 export default {
   name: "productList",
@@ -48,7 +65,7 @@ export default {
   data() {
     return {
       desiredPrice: 0,
-      test: 1
+      info: false
     };
   },
   watch: {},
@@ -64,6 +81,13 @@ export default {
         commit: "setItem",
         commitAddress: "listView"
       });
+    },
+    viewInfo() {
+      if (this.info == false) {
+        this.info = true;
+      } else {
+        this.info = false;
+      }
     }
     // NOTE Original idea for price tracker ---
     // priceChecker() {
@@ -85,13 +109,16 @@ export default {
     myProducts() {
       return this.$store.state.myProducts;
     }
+  },
+  components: {
+    about
   }
 };
 </script>
 
 <style>
 .title {
-  color: rgb(25, 25, 173);
+  color: black;
   padding-top: 1vh;
   display: flex;
   justify-content: center;
@@ -104,6 +131,10 @@ export default {
 .product-row {
   border-top: 2px solid black;
   padding-top: 1vh;
+}
+.productTitle {
+  color: blue;
+  text-decoration: underline;
 }
 .red {
   color: red;

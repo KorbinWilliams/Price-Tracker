@@ -179,7 +179,6 @@ export default new Vuex.Store({
       });
     },
     priceTrack({ commit }, data, payload) {
-      debugger;
       for (let i = 0; i < data.length; i++) {
         let product = data[i];
         if (
