@@ -40,22 +40,21 @@
 </template>
 
 <script>
-//     mounted() {
-//         this.$root.$on('component1', () => {
-//             // your code goes here
-//             this.c1method()
-//         }
-//     }
 // and in the second component call the $emit function in $root
 
 //     c2method: function(){
-//      this.$root.$emit('component1') //like this
+//      this.$root.$emit('component1')
 //     },
 // TODO Need to make pagination for every 4 products later
 // TODO Experiment with pagination based on number of products in myProducts
+
 export default {
   name: "productList",
-  mounted() {},
+  mounted() {
+    this.$root.$on("priceChecker", () => {
+      this.priceChecker();
+    });
+  },
   data() {
     return {
       desiredPrice: 0,
@@ -76,19 +75,17 @@ export default {
         commitAddress: "listView"
       });
     },
-    priceTracker() {
+    priceChecker() {
       const myProducts = this.$store.state.myProducts;
       for (let i = 0; i < myProducts.length; i++) {
         let product = myProducts[i];
-        // NOTE Redundant code
-        // let productIndex = myProducts.findIndex(product => product._id == i);
         let curElem = document.getElementById(`${i}`);
         if (product.currentPrice < product.desiredPrice) {
-          curElem.className = "grnTxt";
+          curElem.className = "col-4 grnTxt";
         } else if (product.currentPrice > product.desiredPrice) {
-          curElem.className = "redTxt";
+          curElem.className = "col-4 redTxt";
         } else {
-          curElem.className = "blueTxt";
+          curElem.className = "col-4 blueTxt";
         }
       }
     }

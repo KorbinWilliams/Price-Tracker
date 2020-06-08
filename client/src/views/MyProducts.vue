@@ -23,7 +23,7 @@ export default {
   name: "myProducts",
   mounted() {
     this.getMyProducts();
-    setTimeout(this.checkCurrentPrices(), 1500);
+    setTimeout(this.startPriceTracker(), 1500);
   },
   data() {
     return {};
@@ -37,12 +37,20 @@ export default {
       });
     },
     checkCurrentPrices() {
-      this.$store.dispatch("create", {
+      let dispatch = this.$store.dispatch("create", {
         address: "priceChecker",
         commit: "setItem",
         data: this.$store.state.myProducts,
         commitAddress: "myProducts"
       });
+      return dispatch;
+    },
+    startPriceTracker() {
+      this.checkCurrentPrices()
+        .then(this.$root.$emit("priceChecker"))
+        .catch(e => {
+          console.log(error);
+        });
     }
   },
   components: {
