@@ -12,7 +12,7 @@ const MyProduct = new Schema(
     originalPrice: { type: Decimal, required: true },
     desiredPrice: { type: Decimal, default: 0 },
     currentPrice: { type: Decimal, default: 0 },
-    colorCode: { type: String, default: "blue" },
+    colorCode: { type: String, default: "col-4 blue" },
     authorId: { type: ObjectId, ref: "User", required: true, immutable: true },
   },
   { timestamps: true }

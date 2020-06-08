@@ -179,14 +179,21 @@ export default new Vuex.Store({
       });
     },
     priceTrack({ commit }, data, payload) {
+      debugger;
       for (let i = 0; i < data.length; i++) {
         let product = data[i];
-        if (product.currentPrice < product.desiredPrice) {
-          product.colorCode = "green";
-        } else if (product.currentPrice > product.desiredPrice) {
-          product.colorCode = "red";
+        if (
+          product.currentPrice.$numberDecimal <
+          product.desiredPrice.$numberDecimal
+        ) {
+          product.colorCode = "col-4 green";
+        } else if (
+          product.currentPrice.$numberDecimal >
+          product.desiredPrice.$numberDecimal
+        ) {
+          product.colorCode = "col-4 red";
         } else {
-          product.colorCode = "blue";
+          product.colorCode = "col-4 blue";
         }
       }
       api.post("" + payload.address, data).then((res) => {

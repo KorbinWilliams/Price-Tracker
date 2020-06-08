@@ -31,7 +31,7 @@
           <div class="row">
             <div class="col-4">${{myProduct.originalPrice.$numberDecimal}}</div>
             <div class="col-4">${{myProduct.desiredPrice.$numberDecimal}}</div>
-            <div :id="index" class="col-4">${{myProduct.currentPrice.$numberDecimal}}</div>
+            <div :id="index" :class="myProduct.colorCode">${{myProduct.currentPrice.$numberDecimal}}</div>
           </div>
         </div>
       </div>
@@ -40,21 +40,11 @@
 </template>
 
 <script>
-// and in the second component call the $emit function in $root
-
-//     c2method: function(){
-//      this.$root.$emit('component1')
-//     },
-// TODO Need to make pagination for every 4 products later
 // TODO Experiment with pagination based on number of products in myProducts
 
 export default {
   name: "productList",
-  mounted() {
-    this.$root.$on("priceChecker", () => {
-      this.priceChecker();
-    });
-  },
+  mounted() {},
   data() {
     return {
       desiredPrice: 0,
@@ -75,6 +65,7 @@ export default {
         commitAddress: "listView"
       });
     }
+    // NOTE Original idea for price tracker ---
     // priceChecker() {
     //   const myProducts = this.$store.state.myProducts;
     //   for (let i = 0; i < myProducts.length; i++) {
@@ -114,13 +105,16 @@ export default {
   border-top: 2px solid black;
   padding-top: 1vh;
 }
-.redTxt {
+.red {
   color: red;
+  text-shadow: 1px 1px black;
 }
-.grnTxt {
+.green {
   color: green;
+  text-shadow: 1px 1px black;
 }
-.blueTxt {
+.blue {
   color: blue;
+  text-shadow: 1px 1px black;
 }
 </style>
