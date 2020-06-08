@@ -131,15 +131,22 @@ export default new Vuex.Store({
         });
       // for using ref's. address 1 is where the id/ref comes from, address 2 is what youre looking for, commitAddress is where it's going in the state.
     },
-    create({ commit }, payload) {
+    create({ commit, dispatch }, payload) {
       api
         .post("" + payload.address, payload.data)
         .then((res) => {
-          console.log(res);
-          commit(payload.commit, {
-            data: res.data,
-            address: payload.commitAddress,
-          });
+          if (payload.priceTrack == true) {
+            commit(payload.commit, {
+              data: res.data,
+              address: payload.commitAddress,
+            });
+            dispatch("priceTrack", res.data, payload);
+          } else {
+            commit(payload.commit, {
+              data: res.data,
+              address: payload.commitAddress,
+            });
+          }
         })
         .catch((e) => console.error(e));
     },
@@ -169,6 +176,24 @@ export default new Vuex.Store({
       commit(payload.commit, {
         data: payload.data,
         address: payload.commitAddress,
+      });
+    },
+    priceTrack({ commit }, data, payload) {
+      for (let i = 0; i < data.length; i++) {
+        let product = data[i];
+        if (product.currentPrice < product.desiredPrice) {
+          product.colorCode = "green";
+        } else if (product.currentPrice > product.desiredPrice) {
+          product.colorCode = "red";
+        } else {
+          product.colorCode = "blue";
+        }
+      }
+      api.post("" + payload.address, data).then((res) => {
+        commit(payload.commit, {
+          data: res.data,
+          address: payload.commitAddress,
+        });
       });
     },
   },

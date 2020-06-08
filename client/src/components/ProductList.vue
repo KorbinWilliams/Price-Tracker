@@ -74,21 +74,21 @@ export default {
         commit: "setItem",
         commitAddress: "listView"
       });
-    },
-    priceChecker() {
-      const myProducts = this.$store.state.myProducts;
-      for (let i = 0; i < myProducts.length; i++) {
-        let product = myProducts[i];
-        let curElem = document.getElementById(`${i}`);
-        if (product.currentPrice < product.desiredPrice) {
-          curElem.className = "col-4 grnTxt";
-        } else if (product.currentPrice > product.desiredPrice) {
-          curElem.className = "col-4 redTxt";
-        } else {
-          curElem.className = "col-4 blueTxt";
-        }
-      }
     }
+    // priceChecker() {
+    //   const myProducts = this.$store.state.myProducts;
+    //   for (let i = 0; i < myProducts.length; i++) {
+    //     let product = myProducts[i];
+    //     let curElem = document.getElementById(`${i}`);
+    //     if (product.currentPrice < product.desiredPrice) {
+    //       curElem.className = "col-4 grnTxt";
+    //     } else if (product.currentPrice > product.desiredPrice) {
+    //       curElem.className = "col-4 redTxt";
+    //     } else {
+    //       curElem.className = "col-4 blueTxt";
+    //     }
+    //   }
+    // }
   },
   computed: {
     myProducts() {
