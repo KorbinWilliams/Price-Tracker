@@ -36,9 +36,13 @@
       <div class="col-12">
         <div class="row">
           <div class="col-12">
-            <p>Set desired price</p>
+            <div class="row">
+              <div class="col-5 offset-1">
+                <p>Set desired price</p>
+              </div>
+            </div>
           </div>
-          <div class="col-3 offset-3">
+          <div class="col-3 offset-1">
             <div class="form-group">
               <input
                 type="text"
@@ -50,7 +54,10 @@
             </div>
           </div>
           <div class="col-2">
-            <button @click="changeDesiredPrice">submit</button>
+            <button class="btn" @click="changeDesiredPrice">submit</button>
+          </div>
+          <div class="col-2 offset-2">
+            <button @click="removeProduct" class="btn btn-danger">remove item</button>
           </div>
         </div>
       </div>
@@ -90,6 +97,15 @@ export default {
         commitAddress: "myProducts",
         commit: "editItem"
       });
+    },
+    removeProduct() {
+      let product = this.$store.state.activeProduct;
+      this.$store.dispatch("delete", {
+        data: product,
+        address: "myProducts",
+        commit: "removeItem",
+        commitAddress: "myProducts"
+      });
     }
   },
   computed: {
@@ -102,8 +118,8 @@ export default {
 
 <style>
 .single-product-image {
-  height: 35vh;
-  width: 35vw;
+  height: 20rem;
+  width: 20rem;
   border: 2px solid black;
 }
 /* .product-price-row {

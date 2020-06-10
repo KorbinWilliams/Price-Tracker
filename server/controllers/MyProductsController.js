@@ -11,6 +11,7 @@ export default class MyProductController {
       .get("", this.getAll)
       // .get("/:id", this.getById)
       .post("", this.create)
+      .delete("/:id", this.delete)
       .put("/:id", this.edit)
       .use(this.defaultRoute);
   }
@@ -55,6 +56,15 @@ export default class MyProductController {
         req.session.uid
       );
       return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async delete(req, res, next) {
+    try {
+      await _myProductService.delete(req.session.uid, req.params.id);
+      return res.send("Successfully deleted");
     } catch (error) {
       next(error);
     }
