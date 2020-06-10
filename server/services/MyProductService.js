@@ -8,6 +8,7 @@ class MyProductService {
   async delete(uid, id) {
     await _repository.findByIdAndRemove({ authorId: uid, _id: id });
   }
+
   async getAll(uid) {
     let data = await _repository.find({ authorId: uid });
     return data;
