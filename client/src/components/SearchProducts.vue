@@ -78,6 +78,14 @@ export default {
       newQuery = newQuery.slice(0, queryLength);
       return newQuery;
     },
+    modifyPrice(product) {
+      console.log(product);
+      let price = product.price;
+      if (price.indexOf("$") != -1) {
+        product.price = price.substring(1, product.price.length);
+      }
+      return product;
+    },
     // NOTE Takes in a query converts it to an amazon search and returns the top 10 results
     searchForProducts() {
       this.$store.dispatch("create", {
@@ -94,11 +102,13 @@ export default {
     },
     // NOTE Takes in a search result converts it to myProduct format and saves it
     addProduct(product) {
-      console.log(product);
+      console.log(product.price + " product");
       product.url =
         "https://www.amazon.com/s?k=" +
         this.modifyQuery() +
         "&ref=nb_sb_noss_2";
+      //NOTE Somethings going wrong here. Need to remove $ from price
+      this.modifyPrice(product);
       product.originalPrice = parseFloat(product.price);
       product.currentPrice = parseFloat(product.price);
 
