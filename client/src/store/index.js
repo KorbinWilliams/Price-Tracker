@@ -83,6 +83,7 @@ export default new Vuex.Store({
       try {
         let success = await AuthService.Logout();
         if (!success) {
+          console.log("Failed to log in");
         }
         commit("resetState");
         router.push({ name: "login" });
@@ -131,7 +132,7 @@ export default new Vuex.Store({
         });
       // for using ref's. address 1 is where the id/ref comes from, address 2 is what youre looking for, commitAddress is where it's going in the state.
     },
-    create({ commit, dispatch }, payload) {
+    async create({ commit, dispatch }, payload) {
       api
         .post("" + payload.address, payload.data)
         .then((res) => {
