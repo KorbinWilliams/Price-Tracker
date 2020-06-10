@@ -56,7 +56,6 @@
 </template>
 
 <script>
-// TODO Fix pagination may need to add more results to equal 12
 export default {
   name: "searchProducts",
   data() {
@@ -111,13 +110,7 @@ export default {
       });
     },
     nextSearchResults(num) {
-      if (num == 1) {
-        this.page = 1;
-      } else if (num == 2) {
-        this.page = 2;
-      } else if (num == 3) {
-        this.page = 3;
-      }
+      this.page = num;
     }
   },
   computed: {

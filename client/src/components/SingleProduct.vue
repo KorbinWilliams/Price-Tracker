@@ -102,8 +102,8 @@ export default {
 
 <style>
 .single-product-image {
-  height: 30vh;
-  width: 70vw;
+  height: 35vh;
+  width: 35vw;
   border: 2px solid black;
 }
 /* .product-price-row {

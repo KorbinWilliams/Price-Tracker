@@ -179,6 +179,7 @@ export default new Vuex.Store({
       });
     },
     priceTrack({ commit }, data, payload) {
+      // TODO Fix the save issue with payload
       for (let i = 0; i < data.length; i++) {
         let product = data[i];
         if (
@@ -195,8 +196,9 @@ export default new Vuex.Store({
           product.colorCode = "col-4 blue";
         }
       }
+      console.log(payload + " payload");
       api.post("" + payload.address, data).then((res) => {
-        commit(payload.commit, {
+        commit("setItem", {
           data: res.data,
           address: payload.commitAddress,
         });

@@ -51,6 +51,13 @@
           <about />
         </div>
       </div>
+      <div v-show="info == false" class="row pageBtn">
+        <div class="col">
+          <button @click="nextProductResults(1)">1</button>
+          <button @click="nextProductResults(2)">2</button>
+          <button @click="nextProductResults(3)">3</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -65,7 +72,8 @@ export default {
   data() {
     return {
       desiredPrice: 0,
-      info: false
+      info: false,
+      page: 1
     };
   },
   watch: {},
@@ -88,6 +96,9 @@ export default {
       } else {
         this.info = false;
       }
+    },
+    nextProductResults(num) {
+      this.page = num;
     }
     // NOTE Original idea for price tracker ---
     // priceChecker() {
@@ -107,7 +118,16 @@ export default {
   },
   computed: {
     myProducts() {
-      return this.$store.state.myProducts;
+      if (this.page == 1) {
+        return this.$store.state.myProducts.slice(0, 4);
+      } else if (this.page == 2) {
+        return this.$store.state.myProducts.slice(4, 8);
+      } else {
+        return this.$store.state.myProducts.slice(
+          8,
+          this.$store.state.myProducts.length
+        );
+      }
     }
   },
   components: {
@@ -137,7 +157,7 @@ export default {
   text-decoration: underline;
 }
 .red {
-  color: red;
+  color: rgb(218, 14, 14);
   text-shadow: 1px 1px black;
 }
 .green {
