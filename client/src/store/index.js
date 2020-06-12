@@ -13,7 +13,7 @@ let base = window.location.host.includes("localhost:8080")
 
 let api = Axios.create({
   baseURL: base + "api/",
-  timeout: 20000,
+  timeout: 60000,
   withCredentials: true,
 });
 
@@ -141,6 +141,7 @@ export default new Vuex.Store({
               data: res.data,
               address: payload.commitAddress,
             });
+            // FIXME
             dispatch("priceTrack", res.data, payload);
           } else {
             commit(payload.commit, {
@@ -197,12 +198,10 @@ export default new Vuex.Store({
           product.colorCode = "col-4 blue";
         }
       }
-      console.log(payload + " payload");
-      api.post("" + payload.address, data).then((res) => {
-        commit("setItem", {
-          data: res.data,
-          address: payload.commitAddress,
-        });
+      // FIXME
+      commit("setItem", {
+        data: data,
+        address: "myProducts",
       });
     },
   },

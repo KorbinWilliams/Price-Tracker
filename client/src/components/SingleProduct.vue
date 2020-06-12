@@ -37,12 +37,12 @@
         <div class="row">
           <div class="col-12">
             <div class="row">
-              <div class="col-5 offset-1">
+              <div class="col-12 col-md-5">
                 <p>Set desired price</p>
               </div>
             </div>
           </div>
-          <div class="col-3 offset-1">
+          <div class="col-5 col-md-3 offset-1">
             <div class="form-group">
               <input
                 type="text"
@@ -53,10 +53,10 @@
               />
             </div>
           </div>
-          <div class="col-2">
+          <div class="col-5">
             <button class="btn" @click="changeDesiredPrice">submit</button>
           </div>
-          <div class="col-2 offset-2">
+          <div class="col-12">
             <button @click="removeProduct" class="btn btn-danger">remove item</button>
           </div>
         </div>
@@ -119,7 +119,7 @@ export default {
 <style>
 .single-product-image {
   height: 20rem;
-  width: 20rem;
+  width: 17rem;
   border: 2px solid black;
 }
 /* .product-price-row {

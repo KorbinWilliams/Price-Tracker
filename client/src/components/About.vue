@@ -4,12 +4,12 @@
       <div class="col-12">
         <div class="row">
           <div class="col-12 about">
-            <h4>-My Products displays the products you have added from search results (max of 9).</h4>
+            <h4>-My Products displays the products you have added from search results (max of 3).</h4>
           </div>
         </div>
         <div class="row">
           <div class="col-12 about">
-            <h4>-It will check the current prices of procducts you have added. Be patient as the more products you have added the longer it will take</h4>
+            <h4>-It will check the current prices of products you have added. Be patient as the more products you have added the longer it will take</h4>
           </div>
         </div>
         <div class="row">

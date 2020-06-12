@@ -35,18 +35,19 @@
                 <div class="col-8">{{searchResult.title.slice(0, 50)}}...</div>
               </div>
               <div class="row">
-                <div class="col-9">{{searchResult.price}}</div>
-                <div class="col-3">
+                <div class="col-12 col-md-9">{{searchResult.price}}</div>
+                <div class="col-12 col-md-3">
                   <button class="btn btn-success" @click="addProduct(searchResult)">track product</button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row pageBtn">
+          <div v-if="this.$store.state.searchResults.length > 1" class="row pageBtn">
             <div class="col">
               <button @click="nextSearchResults(1)">1</button>
               <button @click="nextSearchResults(2)">2</button>
               <button @click="nextSearchResults(3)">3</button>
+              <button @click="nextSearchResults(4)">4</button>
             </div>
           </div>
         </div>
@@ -102,22 +103,24 @@ export default {
     },
     // NOTE Takes in a search result converts it to myProduct format and saves it
     addProduct(product) {
-      console.log(product.price + " product");
-      product.url =
-        "https://www.amazon.com/s?k=" +
-        this.modifyQuery() +
-        "&ref=nb_sb_noss_2";
-      //NOTE Somethings going wrong here. Need to remove $ from price
-      this.modifyPrice(product);
-      product.originalPrice = parseFloat(product.price);
-      product.currentPrice = parseFloat(product.price);
+      if (this.$store.state.myProducts.length < 3) {
+        product.url =
+          "https://www.amazon.com/s?k=" +
+          this.modifyQuery() +
+          "&ref=nb_sb_noss_2";
+        //NOTE Somethings going wrong here. Need to remove $ from price
+        this.modifyPrice(product);
+        product.originalPrice = parseFloat(product.price);
+        product.currentPrice = parseFloat(product.price);
+        product.colorCode = "col-4 blue";
 
-      this.$store.dispatch("create", {
-        commit: "addItem",
-        address: "myProducts",
-        commitAddress: "MyProducts",
-        data: product
-      });
+        this.$store.dispatch("create", {
+          commit: "addItem",
+          address: "myProducts",
+          commitAddress: "MyProducts",
+          data: product
+        });
+      }
     },
     nextSearchResults(num) {
       this.page = num;
@@ -126,12 +129,14 @@ export default {
   computed: {
     searchResults1() {
       if (this.page == 1) {
-        return this.$store.state.searchResults.slice(0, 4);
+        return this.$store.state.searchResults.slice(0, 3);
       } else if (this.page == 2) {
-        return this.$store.state.searchResults.slice(4, 8);
+        return this.$store.state.searchResults.slice(3, 6);
+      } else if (this.page == 3) {
+        return this.$store.state.searchResults.slice(6, 9);
       } else {
         return this.$store.state.searchResults.slice(
-          8,
+          9,
           this.$store.state.searchResults.length
         );
       }
@@ -144,7 +149,7 @@ export default {
 #searchBox {
   background-color: rgb(248, 234, 34);
   margin-top: 5vh;
-  height: 60vh;
+  height: 100%;
   border: 2px solid black;
 }
 .searchBar {

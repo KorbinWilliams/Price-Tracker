@@ -1,12 +1,12 @@
 <template>
   <div class="navBar">
     <div class="row" id="navBox">
-      <div class="col-2 offset-4">
+      <div class="col-6">
         <router-link to="/home" class="links">
           <button class="btn btn-info">Home</button>
         </router-link>
       </div>
-      <div class="col-2">
+      <div class="col-6">
         <router-link to="/myProducts" class="links">
           <button class="btn btn-info">My Products</button>
         </router-link>

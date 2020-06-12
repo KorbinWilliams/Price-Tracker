@@ -2,18 +2,21 @@
   <div class="productList row">
     <div class="col-12">
       <div class="row title">
-        <div class="col-8 offset-2">
+        <div class="col-12 col-md-8">
           <h3 v-show="info == false">My products</h3>
           <h3 v-show="info == true">About</h3>
         </div>
-        <div class="col-2">
+        <div class="col-6 col-md-2">
+          <button class="btn btn-info" @click="checkCurrentPrices">check prices</button>
+        </div>
+        <div class="col-6 col-md-2">
           <button @click="viewInfo" class="btn btn-info">Info</button>
         </div>
       </div>
       <div class="row">
         <div v-show="info == false" class="col-12">
           <div class="row product-row" v-for="(myProduct, index) in myProducts" :key="myProduct.id">
-            <div class="col-6">
+            <div class="col-12 col-md-6">
               <img
                 @click="selectProduct(myProduct)"
                 class="product-image"
@@ -21,7 +24,7 @@
                 alt="product image"
               />
             </div>
-            <div class="col-6" @click="selectProduct(myProduct)">
+            <div class="col-12 col-md-6" @click="selectProduct(myProduct)">
               <h3 class="productTitle">{{myProduct.title.slice(0, 50)}}...</h3>
             </div>
             <div class="col-12">
@@ -51,13 +54,6 @@
           <about />
         </div>
       </div>
-      <div v-show="info == false" class="row pageBtn">
-        <div class="col">
-          <button @click="nextProductResults(1)">1</button>
-          <button @click="nextProductResults(2)">2</button>
-          <button @click="nextProductResults(3)">3</button>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -72,8 +68,7 @@ export default {
   data() {
     return {
       desiredPrice: 0,
-      info: false,
-      page: 1
+      info: false
     };
   },
   watch: {},
@@ -97,9 +92,16 @@ export default {
         this.info = false;
       }
     },
-    nextProductResults(num) {
-      this.page = num;
+    checkCurrentPrices() {
+      this.$store.dispatch("create", {
+        address: "priceChecker",
+        commit: "setItem",
+        data: this.$store.state.myProducts,
+        commitAddress: "myProducts",
+        priceTrack: true
+      });
     }
+
     // NOTE Original idea for price tracker ---
     // priceChecker() {
     //   const myProducts = this.$store.state.myProducts;
@@ -118,16 +120,7 @@ export default {
   },
   computed: {
     myProducts() {
-      if (this.page == 1) {
-        return this.$store.state.myProducts.slice(0, 4);
-      } else if (this.page == 2) {
-        return this.$store.state.myProducts.slice(4, 8);
-      } else {
-        return this.$store.state.myProducts.slice(
-          8,
-          this.$store.state.myProducts.length
-        );
-      }
+      return this.$store.state.myProducts;
     }
   },
   components: {

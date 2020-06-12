@@ -23,26 +23,16 @@ export default {
   name: "myProducts",
   mounted() {
     this.getMyProducts();
-    setTimeout(this.checkCurrentPrices(), 1500);
   },
   data() {
     return {};
   },
   methods: {
-    getMyProducts() {
-      this.$store.dispatch("get", {
+    async getMyProducts() {
+      await this.$store.dispatch("get", {
         address: "myProducts",
         commit: "setItem",
         commitAddress: "myProducts"
-      });
-    },
-    checkCurrentPrices() {
-      this.$store.dispatch("create", {
-        address: "priceChecker",
-        commit: "setItem",
-        data: this.$store.state.myProducts,
-        commitAddress: "myProducts",
-        priceTrack: true
       });
     }
   },
@@ -59,7 +49,7 @@ export default {
   border: 2px solid black;
   margin-top: 5vh;
   background-color: darkcyan;
-  height: 70vh;
+  height: 100%;
 }
 .myProducts {
   background-color: white;
