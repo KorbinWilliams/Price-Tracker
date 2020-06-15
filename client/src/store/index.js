@@ -141,7 +141,6 @@ export default new Vuex.Store({
               data: res.data,
               address: payload.commitAddress,
             });
-            // FIXME
             dispatch("priceTrack", res.data, payload);
           } else {
             commit(payload.commit, {
@@ -198,7 +197,6 @@ export default new Vuex.Store({
           product.colorCode = "col-4 blue";
         }
       }
-      // FIXME
       commit("setItem", {
         data: data,
         address: "myProducts",

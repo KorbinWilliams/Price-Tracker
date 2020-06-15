@@ -30,13 +30,13 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-4">
-                  <p>original price</p>
+                  <p class="priceLabel">original price</p>
                 </div>
                 <div class="col-4">
-                  <p>desired price</p>
+                  <p class="priceLabel">desired price</p>
                 </div>
                 <div class="col-4">
-                  <p>current price</p>
+                  <p class="priceLabel">current price</p>
                 </div>
               </div>
               <div class="row">
@@ -148,6 +148,9 @@ export default {
 .productTitle {
   color: blue;
   text-decoration: underline;
+}
+.priceLabel {
+  font-weight: bold;
 }
 .red {
   color: rgb(218, 14, 14);

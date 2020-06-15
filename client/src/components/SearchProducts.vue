@@ -3,7 +3,7 @@
     <div class="col-12">
       <div class="row searchBar">
         <div class="col-4 offset-4">
-          <p>search for products</p>
+          <p class="headText">search for products</p>
           <div class="form-group">
             <input
               type="text"
@@ -62,8 +62,12 @@ export default {
   data() {
     return {
       searchQuery: "dog toys",
-      page: 1
+      page: 1,
+      original: true
     };
+  },
+  mounted() {
+    this.changeSearchBox();
   },
   methods: {
     modifyQuery() {
@@ -87,6 +91,15 @@ export default {
       }
       return product;
     },
+    changeSearchBox() {
+      if (
+        document.getElementById("searchBox") != undefined ||
+        this.$store.state.searchResults.length > 1
+      ) {
+        let box = document.getElementById("searchBox");
+        box.id = "searchBox2";
+      }
+    },
     // NOTE Takes in a query converts it to an amazon search and returns the top 10 results
     searchForProducts() {
       this.$store.dispatch("create", {
@@ -100,6 +113,7 @@ export default {
             "&ref=nb_sb_noss_2"
         }
       });
+      this.changeSearchBox();
     },
     // NOTE Takes in a search result converts it to myProduct format and saves it
     addProduct(product) {
@@ -149,8 +163,17 @@ export default {
 #searchBox {
   background-color: rgb(248, 234, 34);
   margin-top: 5vh;
+  height: 60vh;
+  border: 2px solid black;
+}
+#searchBox2 {
+  background-color: rgb(248, 234, 34);
+  margin-top: 5vh;
   height: 100%;
   border: 2px solid black;
+}
+.headText {
+  font-weight: bold;
 }
 .searchBar {
   border-bottom: 2px solid black;
@@ -161,5 +184,6 @@ export default {
 .searchImage {
   height: 100px;
   width: 100px;
+  border: 2px solid black;
 }
 </style>
