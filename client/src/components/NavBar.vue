@@ -24,7 +24,7 @@ export default {
 
 <style>
 #navBox {
-  border: 2px solid black;
+  border-bottom: 2px solid black;
   background-color: rgb(185, 185, 185);
 }
 .links {

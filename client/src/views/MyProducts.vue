@@ -28,6 +28,7 @@ export default {
     return {};
   },
   methods: {
+    // NOTE retrieves prieviously saved/tracked products from database
     async getMyProducts() {
       await this.$store.dispatch("get", {
         address: "myProducts",

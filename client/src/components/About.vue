@@ -9,7 +9,7 @@
         </div>
         <div class="row">
           <div class="col-12 about">
-            <h4>-It will check the current prices of products you have added. Be patient as the more products you have added the longer it will take</h4>
+            <h4>-Clicking the check prices button will check the current prices of products you have added. Be patient as the more products you have added the longer it will take</h4>
           </div>
         </div>
         <div class="row">
@@ -17,7 +17,7 @@
             <h4>
               -Once it has retrieved the current prices the colors of the prices will most likely change.
               <br />
-              <span class="blue">blue</span>: the current price is equal to the desired price
+              <span class="blue">blue</span>: (default color) the current price is equal to the desired price
               <br />
               <span class="green">green</span>: the current price is better or equal to your set desired price (which by default is zero)
               <br />
@@ -27,7 +27,7 @@
         </div>
         <div class="row">
           <div class="col-12 about">
-            <h4>-You can click on a products picture or description to get a better view of a products details. Click on the products picture or description to return</h4>
+            <h4>-You can click on a products picture or description to get a better view of a products details, change the desired price, or remove the item. Click on the products picture or description to return</h4>
           </div>
         </div>
       </div>

@@ -7,10 +7,13 @@
           <h3 v-show="info == true">About</h3>
         </div>
         <div class="col-6 col-md-2">
-          <button class="btn btn-info" @click="checkCurrentPrices">check prices</button>
+          <button v-if="info == false" class="btn btn-info" @click="checkCurrentPrices">check prices</button>
         </div>
         <div class="col-6 col-md-2">
-          <button @click="viewInfo" class="btn btn-info">Info</button>
+          <button v-if="info == false" @click="viewInfo" class="btn btn-info">Info</button>
+        </div>
+        <div class="col-12 col-md-2">
+          <button v-if="info == true" @click="viewInfo" class="btn btn-info">Products</button>
         </div>
       </div>
       <div class="row">
@@ -73,6 +76,7 @@ export default {
   },
   watch: {},
   methods: {
+    // NOTE makes the selected product the active product and changes to from a list display to a single product display
     selectProduct(Product) {
       this.$store.dispatch("setActive", {
         data: Product,
@@ -85,6 +89,7 @@ export default {
         commitAddress: "listView"
       });
     },
+    // NOTE changes from a list display to an info/about app display
     viewInfo() {
       if (this.info == false) {
         this.info = true;
@@ -92,6 +97,7 @@ export default {
         this.info = false;
       }
     },
+    // NOTE checks the current prices of saved/tracked products
     checkCurrentPrices() {
       this.$store.dispatch("create", {
         address: "priceChecker",

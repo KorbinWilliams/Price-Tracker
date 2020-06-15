@@ -74,6 +74,7 @@ export default {
     };
   },
   methods: {
+    // NOTE changes back to a list display from a single product display
     changeListView() {
       this.$store.dispatch("setActive", {
         data: true,
@@ -81,6 +82,7 @@ export default {
         commitAddress: "listView"
       });
     },
+    // NOTE sets the desired price of a saved/tracked product
     changeDesiredPrice() {
       let product = this.$store.state.activeProduct;
       this.$store.dispatch("edit", {
@@ -98,6 +100,7 @@ export default {
         commit: "editItem"
       });
     },
+    // NOTE removes a saved/tracked product
     removeProduct() {
       let product = this.$store.state.activeProduct;
       this.$store.dispatch("delete", {

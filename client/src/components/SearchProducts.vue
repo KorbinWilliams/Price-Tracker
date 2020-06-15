@@ -70,8 +70,8 @@ export default {
     this.changeSearchBox();
   },
   methods: {
+    // NOTE Replaces spaces in searchQuery with +'s
     modifyQuery() {
-      // NOTE Replaces spaces in searchQuery with +'s
       let query = this.searchQuery.split(" ");
       let newQuery = "";
       for (let i = 0; i < query.length; i++) {
@@ -83,6 +83,7 @@ export default {
       newQuery = newQuery.slice(0, queryLength);
       return newQuery;
     },
+    // NOTE modifies the price so that a product can be saved and formatted correctly with mongoose
     modifyPrice(product) {
       console.log(product);
       let price = product.price;
@@ -91,6 +92,7 @@ export default {
       }
       return product;
     },
+    // NOTE makes tyhe search box look more appealing when there are no products in searchResults
     changeSearchBox() {
       if (
         document.getElementById("searchBox") != undefined ||
@@ -136,11 +138,13 @@ export default {
         });
       }
     },
+    // NOTE pagination
     nextSearchResults(num) {
       this.page = num;
     }
   },
   computed: {
+    // NOTE pagination related results
     searchResults1() {
       if (this.page == 1) {
         return this.$store.state.searchResults.slice(0, 3);
